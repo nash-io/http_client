@@ -93,5 +93,5 @@ defmodule HttpClient do
     |> Instrumenter.instrument(url)
   end
 
-  defp impl, do: Application.fetch_env!(:http_client, :http_client_impl)
+  defp impl, do: Application.get_env(:http_client, :http_client_impl, HTTPoison)
 end
