@@ -9,6 +9,10 @@ defmodule HttpClient do
   @callback post(String.t(), String.t(), list()) :: {:ok, any()} | {:error, any()}
   @callback post(String.t(), String.t(), list(), list()) :: {:ok, any()} | {:error, any()}
 
+  @callback put(String.t(), String.t()) :: {:ok, any()} | {:error, any()}
+  @callback put(String.t(), String.t(), list()) :: {:ok, any()} | {:error, any()}
+  @callback put(String.t(), String.t(), list(), list()) :: {:ok, any()} | {:error, any()}
+
   def get(url) do
     :timer.tc(fn ->
       impl().get(url)
