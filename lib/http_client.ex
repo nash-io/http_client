@@ -13,6 +13,10 @@ defmodule HttpClient do
   @callback put(String.t(), String.t(), list()) :: {:ok, any()} | {:error, any()}
   @callback put(String.t(), String.t(), list(), list()) :: {:ok, any()} | {:error, any()}
 
+  @callback delete(String.t()) :: {:ok, any()} | {:error, any()}
+  @callback delete(String.t(), list()) :: {:ok, any()} | {:error, any()}
+  @callback delete(String.t(), list(), Keyword.t()) :: {:ok, any()} | {:error, any()}
+
   def get(url) do
     :timer.tc(fn ->
       impl().get(url)
