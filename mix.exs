@@ -4,7 +4,7 @@ defmodule HttpClient.MixProject do
   def project do
     [
       app: :http_client,
-      version: "0.2.2",
+      version: "0.2.3",
       elixir: "~> 1.10",
       start_permanent: Mix.env() == :prod,
       test_coverage: [tool: ExCoveralls],
@@ -20,18 +20,15 @@ defmodule HttpClient.MixProject do
     ]
   end
 
-  # Run "mix help compile.app" to learn about applications.
   def application do
-    [
-      extra_applications: [:logger]
-    ]
+    [extra_applications: [:logger]]
   end
 
-  # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
       {:httpoison, "~> 1.5"},
       {:telemetry, "~> 0.4.0"},
+      {:ex_rated, "~> 2.0"},
       {:mox, "~> 0.5", only: :test},
       {:excoveralls, "~> 0.12", only: [:test]},
       {:ex_unit_sonarqube, "~> 0.1.2", only: [:dev, :test]},
@@ -44,7 +41,7 @@ defmodule HttpClient.MixProject do
   end
 
   defp description do
-    "Httpoison boosted with telemetry and mox."
+    "Httpoison boosted with telemetry, mox and ex_rated."
   end
 
   defp package do
