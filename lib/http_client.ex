@@ -1,6 +1,8 @@
 defmodule HttpClient do
   @moduledoc false
   alias HttpClient.Instrumenter
+  alias HttpClient.RateLimiter
+
   @callback get(String.t()) :: {:ok, any()} | {:error, any()}
   @callback get(String.t(), list()) :: {:ok, any()} | {:error, any()}
   @callback get(String.t(), list(), Keyword.t()) :: {:ok, any()} | {:error, any()}
@@ -17,87 +19,35 @@ defmodule HttpClient do
   @callback delete(String.t(), list()) :: {:ok, any()} | {:error, any()}
   @callback delete(String.t(), list(), Keyword.t()) :: {:ok, any()} | {:error, any()}
 
-  def get(url) do
-    :timer.tc(fn ->
-      impl().get(url)
-    end)
-    |> Instrumenter.instrument(url)
-  end
+  def get(url), do: request(:get, [url])
 
-  def get(url, headers) do
-    :timer.tc(fn ->
-      impl().get(url, headers)
-    end)
-    |> Instrumenter.instrument(url)
-  end
+  def get(url, headers), do: request(:get, [url, headers])
 
-  def get(url, headers, opts) do
-    :timer.tc(fn ->
-      impl().get(url, headers, opts)
-    end)
-    |> Instrumenter.instrument(url)
-  end
+  def get(url, headers, options), do: request(:get, [url, headers, options])
 
-  def post(url, body) do
-    :timer.tc(fn ->
-      impl().post(url, body)
-    end)
-    |> Instrumenter.instrument(url)
-  end
+  def post(url, body), do: request(:post, [url, body])
 
-  def post(url, body, headers) do
-    :timer.tc(fn ->
-      impl().post(url, body, headers)
-    end)
-    |> Instrumenter.instrument(url)
-  end
+  def post(url, body, headers), do: request(:post, [url, body, headers])
 
-  def post(url, body, headers, opts) do
-    :timer.tc(fn ->
-      impl().post(url, body, headers, opts)
-    end)
-    |> Instrumenter.instrument(url)
-  end
+  def post(url, body, headers, options), do: request(:post, [url, body, headers, options])
 
-  def put(url, body) do
-    :timer.tc(fn ->
-      impl().put(url, body)
-    end)
-    |> Instrumenter.instrument(url)
-  end
+  def put(url, body), do: request(:put, [url, body])
 
-  def put(url, body, headers) do
-    :timer.tc(fn ->
-      impl().put(url, body, headers)
-    end)
-    |> Instrumenter.instrument(url)
-  end
+  def put(url, body, headers), do: request(:put, [url, body, headers])
 
-  def put(url, body, headers, opts) do
-    :timer.tc(fn ->
-      impl().put(url, body, headers, opts)
-    end)
-    |> Instrumenter.instrument(url)
-  end
+  def put(url, body, headers, options), do: request(:put, [url, body, headers, options])
 
-  def delete(url) do
-    :timer.tc(fn ->
-      impl().delete(url)
-    end)
-    |> Instrumenter.instrument(url)
-  end
+  def delete(url), do: request(:delete, [url])
 
-  def delete(url, headers) do
-    :timer.tc(fn ->
-      impl().delete(url, headers)
-    end)
-    |> Instrumenter.instrument(url)
-  end
+  def delete(url, headers), do: request(:delete, [url, headers])
 
-  def delete(url, headers, options) do
-    :timer.tc(fn ->
-      impl().delete(url, headers, options)
-    end)
+  def delete(url, headers, options), do: request(:delete, [url, headers, options])
+
+  defp request(method, [url | _] = args) do
+    :ok = RateLimiter.rate_limit(url)
+
+    fn -> apply(impl(), method, args) end
+    |> :timer.tc()
     |> Instrumenter.instrument(url)
   end
 

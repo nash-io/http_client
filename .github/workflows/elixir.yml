@@ -10,14 +10,16 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        otp: ['24.1']
+        elixir: ['1.12.3']
     steps:
     - uses: actions/checkout@v2
-    - name: Setup elixir
-      uses: actions/setup-elixir@v1
+    - uses: erlef/setup-beam@v1
       with:
-        elixir-version: 1.10.3
-        otp-version: 22.2
+        otp-version: ${{matrix.otp}}
+        elixir-version: ${{matrix.elixir}}
     - name: deps cache
       uses: actions/cache@v1
       with:
@@ -32,7 +34,7 @@ jobs:
         key: ${{ runner.os }}-build-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
         restore-keys: |
           ${{ runner.os }}-build-
-    - name: dializer cache
+    - name: dialyzer cache
       uses: actions/cache@v1
       with:
         path: deps
