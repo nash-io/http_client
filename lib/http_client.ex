@@ -44,11 +44,11 @@ defmodule HttpClient do
   def delete(url, headers, options), do: request(:delete, [url, headers, options])
 
   defp request(method, [url | _] = args) do
-    :ok = RateLimiter.rate_limit(url)
-
-    fn -> apply(impl(), method, args) end
-    |> :timer.tc()
-    |> Instrumenter.instrument(url)
+    RateLimiter.rate_limit(url, fn ->
+      fn -> apply(impl(), method, args) end
+      |> :timer.tc()
+      |> Instrumenter.instrument(url)
+    end)
   end
 
   defp impl, do: Application.get_env(:http_client, :http_client_impl, HTTPoison)
