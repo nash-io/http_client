@@ -4,8 +4,8 @@ defmodule HttpClient.MixProject do
   def project do
     [
       app: :http_client,
-      version: "0.2.3",
-      elixir: "~> 1.10",
+      version: "0.2.4",
+      elixir: "~> 1.12",
       start_permanent: Mix.env() == :prod,
       test_coverage: [tool: ExCoveralls],
       deps: deps(),
@@ -21,14 +21,14 @@ defmodule HttpClient.MixProject do
   end
 
   def application do
-    [extra_applications: [:logger]]
+    [extra_applications: [:logger], mod: {HttpClient.Application, []}]
   end
 
   defp deps do
     [
       {:httpoison, "~> 1.5"},
       {:telemetry, "~> 0.4.0"},
-      {:ex_rated, "~> 2.0"},
+      {:ex2ms, "~> 1.6.1"},
       {:mox, "~> 0.5", only: :test},
       {:excoveralls, "~> 0.12", only: [:test]},
       {:ex_unit_sonarqube, "~> 0.1.2", only: [:dev, :test]},
