@@ -4,7 +4,7 @@ defmodule HttpClient.MixProject do
   def project do
     [
       app: :http_client,
-      version: "0.2.4",
+      version: "0.2.5",
       elixir: "~> 1.12",
       start_permanent: Mix.env() == :prod,
       test_coverage: [tool: ExCoveralls],
@@ -27,7 +27,7 @@ defmodule HttpClient.MixProject do
   defp deps do
     [
       {:httpoison, "~> 1.5"},
-      {:telemetry, "~> 0.4.0"},
+      {:telemetry, "~> 0.4.0 or ~> 1.0"},
       {:ex2ms, "~> 1.6.1"},
       {:mox, "~> 0.5", only: :test},
       {:excoveralls, "~> 0.12", only: [:test]},
