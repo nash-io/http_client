@@ -36,7 +36,8 @@ defmodule HttpClient.MixProject do
       {:git_hooks, "~> 0.3", runtime: false, only: [:dev]},
       {:dialyxir, "~> 1.0", runtime: false, only: [:dev]},
       {:sobelow, "~> 0.9", runtime: false, only: [:dev]},
-      {:ex_doc, ">= 0.0.0", only: :dev, runtime: false, only: [:dev, :test]}
+      {:ex_doc, ">= 0.0.0", only: :dev, runtime: false, only: [:dev, :test]},
+      {:ssl_verify_fun, github: "josevalim/ssl_verify_fun.erl", branch: "jv-mix-fix", override: true}
     ]
   end
 
