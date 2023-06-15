@@ -37,7 +37,7 @@ defmodule HttpClient.MixProject do
       {:dialyxir, "~> 1.0", runtime: false, only: [:dev]},
       {:sobelow, "~> 0.9", runtime: false, only: [:dev]},
       {:ex_doc, ">= 0.0.0", only: :dev, runtime: false, only: [:dev, :test]},
-      {:ssl_verify_fun, github: "josevalim/ssl_verify_fun.erl", branch: "jv-mix-fix", override: true}
+      {:ssl_verify_fun, "~> 1.1.6", manager: :rebar3, override: true}
     ]
   end
 
