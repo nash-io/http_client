@@ -12,10 +12,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        otp: ['24.1']
-        elixir: ['1.12.3']
+        otp: ['26']
+        elixir: ['1.18.1']
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - uses: erlef/setup-beam@v1
       with:
         otp-version: ${{matrix.otp}}
