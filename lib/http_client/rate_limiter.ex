@@ -32,7 +32,7 @@ defmodule HttpClient.RateLimiter do
     :ok
   end
 
-  @spec rate_limit(String.t(), (() -> any())) :: any()
+  @spec rate_limit(String.t(), (-> any())) :: any()
   def rate_limit(url, function) do
     {:ok, callback} = rate_limit(url)
     result = function.()
@@ -40,7 +40,7 @@ defmodule HttpClient.RateLimiter do
     result
   end
 
-  @spec rate_limit(String.t()) :: {:ok, (() -> :ok)}
+  @spec rate_limit(String.t()) :: {:ok, (-> :ok)}
   def rate_limit(url) do
     case retrieve_rate_limit_config(url) do
       {:ok, {host, rate_limits}} ->

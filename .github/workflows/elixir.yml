@@ -12,30 +12,30 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        otp: ['24.1']
-        elixir: ['1.12.3']
+        otp: ['26']
+        elixir: ['1.18.1']
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - uses: erlef/setup-beam@v1
       with:
         otp-version: ${{matrix.otp}}
         elixir-version: ${{matrix.elixir}}
     - name: deps cache
-      uses: actions/cache@v1
+      uses: actions/cache@v4
       with:
         path: deps
         key: ${{ runner.os }}-mix-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
         restore-keys: |
           ${{ runner.os }}-mix-
     - name: build cache
-      uses: actions/cache@v1
+      uses: actions/cache@v4
       with:
         path: _build
         key: ${{ runner.os }}-build-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
         restore-keys: |
           ${{ runner.os }}-build-
     - name: dialyzer cache
-      uses: actions/cache@v1
+      uses: actions/cache@v4
       with:
         path: deps
         key: ${{ runner.os }}-plts
