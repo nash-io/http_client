@@ -1,6 +1,6 @@
 # HttpClient
 
-Httpoison boosted with telemetry, mox and ex_rated.
+Httpoison boosted with telemetry, mox and rate limit.
 
 ```elixir
 HttpClient.get("http://mydomain.com")
@@ -8,7 +8,7 @@ HttpClient.get("http://mydomain.com")
 
 ## Installation
 
-The package can be installed by adding `http_client` to your list of dependencies 
+The package can be installed by adding `http_client` to your list of dependencies
 in `mix.exs`:
 
 ```elixir
@@ -28,4 +28,3 @@ The docs can be found at [https://hexdocs.pm/http_client](https://hexdocs.pm/htt
 # HttpClient.get("http://mydomain.com/any_path")
 config :http_client, :rate_limits, "mydomain.com": [{:timer.seconds(1), 5}]
 ```
-

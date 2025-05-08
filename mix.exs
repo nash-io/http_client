@@ -41,7 +41,7 @@ defmodule HttpClient.MixProject do
   end
 
   defp description do
-    "Httpoison boosted with telemetry, mox and ex_rated."
+    "Httpoison boosted with telemetry, mox and rate limit."
   end
 
   defp package do
