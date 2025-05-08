@@ -1,4 +1,6 @@
 Mox.defmock(HttpClient.HttpClientMockImpl, for: HttpClient)
 
-ExUnit.configure(formatters: [ExUnit.CLIFormatter, ExUnitSonarqube])
+Application.put_env(:http_client, :http_client_impl, HttpClient.HttpClientMockImpl)
+
+ExUnit.configure(formatters: [ExUnit.CLIFormatter])
 ExUnit.start()
