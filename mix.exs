@@ -4,7 +4,7 @@ defmodule HttpClient.MixProject do
   def project do
     [
       app: :http_client,
-      version: "0.2.5",
+      version: "0.3.0",
       elixir: "~> 1.18",
       start_permanent: Mix.env() == :prod,
       test_coverage: [tool: ExCoveralls],
